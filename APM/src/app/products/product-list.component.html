@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        {{pageTitle}}
+        {{productPageTitle}}
     </div>
     <div class="card-body">
         <div class="row">
@@ -27,13 +27,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of products" [style.margin.px]="imageMargin">
+                    <tr *ngFor="let product of filteredProducts" [style.margin.px]="imageMargin">
                         <td><img *ngIf="showImage" [src]="product.imageUrl" [title]="product.productName" [style.width.px]="imageWidth" alt=""></td>
                         <td >{{product.productName}}</td>
-                        <td class="text-start">{{product.productCode|lowercase}}</td>
+                        <td class="text-start">{{product.productCode|lowercase|convertToSpace:'-'}}</td>
                         <td class="text-start">{{product.releaseDate}}</td>
-                        <td class="text-start">{{product.price|currency:'USD':'symbol':'2.1-2'}}</td>
-                        <td>{{product.starRating}}</td>
+                        <td class="text-start">{{product.price|currency:'INR':'symbol':'2.1-2'}}</td>
+                        <td>
+                            <pm-star [rating]="product.starRating" (notify)="onNotify($event)" ></pm-star>
+                        </td>
                     </tr>
                 </tbody>
             </table>
